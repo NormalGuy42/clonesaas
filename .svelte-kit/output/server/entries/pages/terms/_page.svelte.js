@@ -1,0 +1,31 @@
+import { h as head } from "../../../chunks/index3.js";
+import { a as SOCIAL_LINKS } from "../../../chunks/index2.js";
+import { a as attr } from "../../../chunks/attributes.js";
+function _page($$renderer, $$props) {
+  $$renderer.component(($$renderer2) => {
+    head("1e0rsuc", $$renderer2, ($$renderer3) => {
+      $$renderer3.title(($$renderer4) => {
+        $$renderer4.push(`<title>Terms of Service - CloneSaaS</title>`);
+      });
+    });
+    $$renderer2.push(`<section class="legal-page svelte-1e0rsuc"><div class="container svelte-1e0rsuc"><a href="/" class="back-link svelte-1e0rsuc"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg> Back to Home</a> <div class="content svelte-1e0rsuc"><h1 class="title svelte-1e0rsuc">Terms of Service</h1> <p class="last-updated svelte-1e0rsuc">Last updated: February 6, 2026</p> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">1. Agreement to Terms</h2> <p class="svelte-1e0rsuc">By accessing or using CloneSaaS, you agree to be bound by these Terms of Service. 
+          If you disagree with any part of these terms, you do not have permission to access 
+          our services.</p></div> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">2. Description of Service</h2> <p class="svelte-1e0rsuc">CloneSaaS provides pre-built, niche-adapted software clones based on proven business 
+          models. Each purchase includes source code, design assets, and documentation to help 
+          you launch your own version of the product.</p></div> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">3. Purchases and Payments</h2> <p class="svelte-1e0rsuc">All purchases are one-time payments. Prices are listed in USD and are subject to 
+          change without notice. Upon successful payment, you will receive access to download 
+          your purchased clone.</p></div> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">4. License and Ownership</h2> <p class="svelte-1e0rsuc">Upon purchase, you receive:</p> <ul class="svelte-1e0rsuc"><li class="svelte-1e0rsuc">A perpetual, non-exclusive license to use, modify, and deploy the clone</li> <li class="svelte-1e0rsuc">The right to rebrand and customize the product as your own</li> <li class="svelte-1e0rsuc">The right to use the clone for commercial purposes</li></ul> <p class="svelte-1e0rsuc">You may NOT:</p> <ul class="svelte-1e0rsuc"><li class="svelte-1e0rsuc">Resell or redistribute the original clone files</li> <li class="svelte-1e0rsuc">Claim the original code as your own creation for sale to others</li> <li class="svelte-1e0rsuc">Use the clone to create a competing service that sells similar clones</li></ul></div> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">5. Intellectual Property</h2> <p class="svelte-1e0rsuc">The original code, design, and documentation remain the intellectual property of 
+          CloneSaaS. Your purchase grants you a license to use these materials, not ownership 
+          of the underlying intellectual property.</p></div> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">6. Disclaimer</h2> <p class="svelte-1e0rsuc">CloneSaaS is provided "as is" without warranties of any kind. We do not guarantee 
+          that the clones will generate revenue or achieve any specific business outcomes. 
+          Success depends on your execution, market conditions, and many other factors outside 
+          our control.</p></div> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">7. Limitation of Liability</h2> <p class="svelte-1e0rsuc">To the maximum extent permitted by law, CloneSaaS shall not be liable for any 
+          indirect, incidental, special, consequential, or punitive damages resulting from 
+          your use or inability to use our services.</p></div> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">8. Changes to Terms</h2> <p class="svelte-1e0rsuc">We reserve the right to modify these terms at any time. Changes will be posted on 
+          this page with an updated date. Your continued use of CloneSaaS after changes 
+          constitutes acceptance of the new terms.</p></div> <div class="section svelte-1e0rsuc"><h2 class="svelte-1e0rsuc">9. Contact</h2> <p class="svelte-1e0rsuc">For questions about these Terms, contact us via <a${attr("href", SOCIAL_LINKS.twitter)} target="_blank" rel="noopener noreferrer" class="svelte-1e0rsuc">X/Twitter</a>.</p></div></div></div></section>`);
+  });
+}
+export {
+  _page as default
+};

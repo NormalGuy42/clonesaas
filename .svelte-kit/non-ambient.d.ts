@@ -40,6 +40,6 @@ declare module "$app/types" {
 		};
 		Pathname(): "/" | "/about" | "/privacy" | "/refund" | "/terms";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
-		Asset(): "/favicon.png" | string & {};
+		Asset(): "/clonesaas.png" | "/favicon.png" | "/faviconS/android-chrome-192x192.png" | "/faviconS/android-chrome-512x512.png" | "/faviconS/apple-touch-icon.png" | "/faviconS/favicon-16x16.png" | "/faviconS/favicon-32x32.png" | "/faviconS/favicon.ico" | "/faviconS/site.webmanifest" | string & {};
 	}
 }

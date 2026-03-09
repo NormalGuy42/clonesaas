@@ -1,7 +1,17 @@
 {
-	"/": [],
-	"/about": [],
-	"/privacy": [],
-	"/refund": [],
-	"/terms": []
+	"/": [
+		"src/routes/+page.ts"
+	],
+	"/about": [
+		"src/routes/about/+page.ts"
+	],
+	"/privacy": [
+		"src/routes/privacy/+page.ts"
+	],
+	"/refund": [
+		"src/routes/refund/+page.ts"
+	],
+	"/terms": [
+		"src/routes/terms/+page.ts"
+	]
 }

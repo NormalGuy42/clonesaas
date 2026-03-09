@@ -1,0 +1,1 @@
+const t={twitter:"https://x.com/madiou",discord:"https://discord.com/invite/jh2H577Ytr"},o={tagline:"Where proven business models get cloned. A marketplace for founders who ship fast.",author:"Madiou",authorUrl:"https://x.com/madiou"};export{o as S,t as a};
