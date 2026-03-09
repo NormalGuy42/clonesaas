@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CloneSaaS — The Clone Factory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #0f0f12;
+      --surface-2: #16161a;
+      --border: #27272a;
+      --border-light: #3f3f46;
+      --text: #fafafa;
+      --text-dim: #a1a1aa;
+      --text-muted: #71717a;
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, 0.1);
+      --green-glow: rgba(34, 197, 94, 0.15);
+      --yellow: #eab308;
+      --red: #ef4444;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Utility */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .mono { font-family: var(--mono); }
+    .green { color: var(--green); }
+    .dim { color: var(--text-dim); }
+    .muted { color: var(--text-muted); }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(9,9,11,0.8); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-left { display: flex; align-items: center; gap: 3rem; }
+    .logo {
+      font-family: var(--mono); font-weight: 600; font-size: 0.9rem;
+      color: var(--text); text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .logo-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 0.85rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .btn { font-family: var(--sans); font-size: 0.85rem; font-weight: 500; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+    .btn-ghost { background: transparent; color: var(--text-dim); }
+    .btn-ghost:hover { color: var(--text); }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-green { background: var(--green); color: #000; font-weight: 600; }
+    .btn-green:hover { background: #16a34a; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--text-dim); }
+
+    /* Hero */
+    .hero {
+      padding: 10rem 0 6rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, var(--green-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono); font-size: 0.75rem;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem; border-radius: 100px; margin-bottom: 1.5rem;
+    }
+    .hero-badge .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+    .hero h1 {
+      font-size: 3.5rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 span { color: var(--green); }
+    .hero-sub { font-size: 1.15rem; color: var(--text-dim); max-width: 500px; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+    .hero-stats {
+      display: flex; gap: 2rem; margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item .stat-value { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; color: var(--green); }
+    .stat-item .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    /* Hero Visual */
+    .hero-visual {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.5rem; position: relative;
+    }
+    .terminal-bar {
+      display: flex; gap: 0.5rem; margin-bottom: 1rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border); }
+    .terminal-dot.red { background: var(--red); }
+    .terminal-dot.yellow { background: var(--yellow); }
+    .terminal-dot.green { background: var(--green); }
+    .terminal-content { font-family: var(--mono); font-size: 0.8rem; line-height: 1.8; }
+    .terminal-line { display: flex; gap: 0.5rem; }
+    .terminal-prompt { color: var(--green); }
+    .terminal-cmd { color: var(--text); }
+    .terminal-output { color: var(--text-muted); margin-left: 1rem; }
+    .terminal-success { color: var(--green); }
+
+    /* How it works */
+    .how-section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-label { font-family: var(--mono); font-size: 0.75rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .section-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; }
+    .section-desc { color: var(--text-dim); max-width: 600px; margin: 1rem auto 0; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .step-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 2rem; position: relative; transition: border-color 0.3s;
+    }
+    .step-card:hover { border-color: var(--green); }
+    .step-num {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 600;
+      color: var(--green); background: var(--green-dim);
+      width: 28px; height: 28px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .step-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .step-card p { font-size: 0.9rem; color: var(--text-dim); }
+
+    /* Templates Section */
+    .templates-section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+    .templates-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+    .templates-header h2 { font-size: 2rem; font-weight: 700; }
+    .templates-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .template-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; transition: all 0.3s;
+    }
+    .template-card:hover { border-color: var(--border-light); transform: translateY(-4px); }
+    .template-preview {
+      height: 200px; background: var(--surface-2); border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .template-preview-inner {
+      position: absolute; inset: 16px; background: var(--bg); border-radius: 6px;
+      border: 1px solid var(--border); display: flex; flex-direction: column;
+    }
+    .preview-nav { height: 24px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 8px; gap: 4px; }
+    .preview-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); }
+    .preview-content { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .preview-line { height: 6px; background: var(--surface); border-radius: 2px; }
+    .preview-line.w-50 { width: 50%; }
+    .preview-line.w-75 { width: 75%; }
+    .preview-line.w-30 { width: 30%; }
+    .template-body { padding: 1.5rem; }
+    .template-meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+    .template-tag { font-family: var(--mono); font-size: 0.65rem; background: var(--green-dim); color: var(--green); padding: 0.2rem 0.5rem; border-radius: 4px; }
+    .template-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .template-card > .template-body > p { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1rem; }
+    .template-price { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .template-price .amount { font-size: 1.5rem; font-weight: 700; }
+    .template-price .period { font-size: 0.85rem; color: var(--text-muted); }
+    .template-features { list-style: none; margin-bottom: 1.5rem; }
+    .template-features li { font-size: 0.8rem; color: var(--text-dim); padding: 0.4rem 0; display: flex; align-items: center; gap: 0.5rem; }
+    .template-features li::before { content: ''; width: 4px; height: 4px; background: var(--green); border-radius: 50%; }
+    .template-actions { display: flex; gap: 0.75rem; }
+    .template-actions .btn { flex: 1; text-align: center; font-size: 0.8rem; }
+
+    /* Submit Idea Section */
+    .submit-section {
+      padding: 6rem 0; border-bottom: 1px solid var(--border);
+      background: linear-gradient(to bottom, var(--bg), var(--surface));
+    }
+    .submit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .submit-content h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .submit-content > p { color: var(--text-dim); margin-bottom: 2rem; max-width: 450px; }
+    .submit-features { margin-bottom: 2rem; }
+    .submit-features li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+    .submit-features .icon {
+      width: 32px; height: 32px; background: var(--green-dim); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.75rem; color: var(--green); flex-shrink: 0;
+    }
+    .submit-features h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .submit-features p { font-size: 0.85rem; color: var(--text-dim); }
+    .submit-form {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 2rem;
+    }
+    .form-header { margin-bottom: 2rem; }
+    .form-header h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .form-header p { font-size: 0.9rem; color: var(--text-dim); }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .form-input, .form-textarea {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.9rem;
+      color: var(--text); font-family: var(--sans); transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--green); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .form-price { font-family: var(--mono); }
+    .form-price .amount { font-size: 1.5rem; font-weight: 700; color: var(--green); }
+    .form-price .label { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Stats Bar */
+    .stats-section { padding: 4rem 0; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+    .stats-grid .stat-value { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--text); }
+    .stats-grid .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+    /* CTA Section */
+    .cta-section { padding: 6rem 0; text-align: center; }
+    .cta-section h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .cta-section p { color: var(--text-dim); max-width: 500px; margin: 0 auto 2rem; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 3rem 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-dim); text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .templates-grid { grid-template-columns: 1fr; }
+      .submit-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 2.5rem; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; gap: 1rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="/" class="logo"><span class="logo-dot"></span> CloneSaaS</a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#templates">Templates</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#submit">Custom Build</a>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="btn btn-ghost">Sign in</a>
+      <a href="#" class="btn btn-primary">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          <span class="mono">v3.2.0 — Now with AI-assisted cloning</span>
+        </div>
+        <h1>The <span>factory</span> for production-ready clones</h1>
+        <p class="hero-sub">Point CloneSaaS at any application. Our engine reverse-engineers the architecture, replicates the functionality, and deploys a white-labeled version to your infrastructure in minutes.</p>
+        <div class="hero-actions">
+          <a href="#templates" class="btn btn-green">Browse Templates</a>
+          <a href="#submit" class="btn btn-outline">Submit Custom Idea</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-value">2,847</div>
+            <div class="stat-label">Clones deployed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">99.9%</div>
+            <div class="stat-label">Uptime SLA</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">&lt;45s</div>
+            <div class="stat-label">Avg. deploy time</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+        </div>
+        <div class="terminal-content">
+          <div class="terminal-line"><span class="terminal-prompt">$</span><span class="terminal-cmd">clonesaas init linear-clone</span></div>
+          <div class="terminal-output">Analyzing target: linear.app</div>
+          <div class="terminal-output">Extracting 47 components...</div>
+          <div class="terminal-output">Mapping 12 API routes...</div>
+          <div class="terminal-output">Generating schema migrations...</div>
+          <div class="terminal-line"><span class="terminal-success">✓ Clone ready in ./linear-clone</span></div>
+          <br>
+          <div class="terminal-line"><span class="terminal-prompt">$</span><span class="terminal-cmd">clonesaas deploy --prod</span></div>
+          <div class="terminal-output">Building for production...</div>
+          <div class="terminal-output">Deploying to edge network (35 regions)...</div>
+          <div class="terminal-line"><span class="terminal-success">✓ Live at https://your-app.clonesaas.io</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How it works</div>
+      <h2 class="section-title">From idea to production in four steps</h2>
+      <p class="section-desc">Our automated pipeline handles the complexity so you can focus on what matters: your business.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Select a template</h3>
+        <p>Choose from our library of production-tested SaaS templates or submit your own custom idea for our team to build.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Configure & customize</h3>
+        <p>Adjust branding, features, and integrations through our visual dashboard. No code required for basic customization.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Review & approve</h3>
+        <p>Preview your clone in a staging environment. Test all functionality before going live.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h3>Deploy & scale</h3>
+        <p>One-click deployment to our global edge network. Auto-scaling handles traffic spikes automatically.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="templates-section" id="templates">
+  <div class="container">
+    <div class="templates-header">
+      <div>
+        <div class="section-label">Templates</div>
+        <h2>Production-ready SaaS clones</h2>
+      </div>
+      <a href="#" class="btn btn-outline">View all templates</a>
+    </div>
+    <div class="templates-grid">
+      
+      <div class="template-card">
+        <div class="template-preview">
+          <div class="template-preview-inner">
+            <div class="preview-nav">
+              <span class="preview-dot"></span><span class="preview-dot"></span><span class="preview-dot"></span>
+            </div>
+            <div class="preview-content">
+              <div class="preview-line w-30"></div>
+              <div class="preview-line w-75"></div>
+              <div class="preview-line w-50"></div>
+            </div>
+          </div>
+        </div>
+        <div class="template-body">
+          <div class="template-meta">
+            <span class="template-tag">POPULAR</span>
+          </div>
+          <h3>LinearFlow</h3>
+          <p>Issue tracking and project management. Clone of Linear with full API compatibility.</p>
+          <div class="template-price">
+            <span class="amount">$299</span>
+            <span class="period">one-time + $49/mo hosting</span>
+          </div>
+          <ul class="template-features">
+            <li>Issue boards with drag-and-drop</li>
+            <li>Real-time collaboration</li>
+            <li>GitHub & GitLab integration</li>
+            <li>Custom workflows & automation</li>
+          </ul>
+          <div class="template-actions">
+            <a href="/concept-5-linearflow.html" class="btn btn-outline">View Demo</a>
+            <a href="#" class="btn btn-green">Clone Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-preview">
+          <div class="template-preview-inner">
+            <div class="preview-nav">
+              <span class="preview-dot"></span><span class="preview-dot"></span><span class="preview-dot"></span>
+            </div>
+            <div class="preview-content">
+              <div class="preview-line w-50"></div>
+              <div class="preview-line w-75"></div>
+              <div class="preview-line w-30"></div>
+            </div>
+          </div>
+        </div>
+        <div class="template-body">
+          <div class="template-meta">
+            <span class="template-tag">NEW</span>
+          </div>
+          <h3>NotionDocs</h3>
+          <p>Document collaboration platform. Full Notion clone with blocks, databases, and AI assist.</p>
+          <div class="template-price">
+            <span class="amount">$399</span>
+            <span class="period">one-time + $59/mo hosting</span>
+          </div>
+          <ul class="template-features">
+            <li>Block-based editor</li>
+            <li>Linked databases</li>
+            <li>Template gallery</li>
+            <li>AI writing assistant</li>
+          </ul>
+          <div class="template-actions">
+            <a href="/concept-5-notiondocs.html" class="btn btn-outline">View Demo</a>
+            <a href="#" class="btn btn-green">Clone Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-preview">
+          <div class="template-preview-inner">
+            <div class="preview-nav">
+              <span class="preview-dot"></span><span class="preview-dot"></span><span class="preview-dot"></span>
+            </div>
+            <div class="preview-content">
+              <div class="preview-line w-75"></div>
+              <div class="preview-line w-50"></div>
+              <div class="preview-line w-30"></div>
+            </div>
+          </div>
+        </div>
+        <div class="template-body">
+          <div class="template-meta">
+            <span class="template-tag">ENTERPRISE</span>
+          </div>
+          <h3>SlackHub</h3>
+          <p>Team communication platform. Slack-compatible with channels, DMs, and third-party apps.</p>
+          <div class="template-price">
+            <span class="amount">$599</span>
+            <span class="period">one-time + $99/mo hosting</span>
+          </div>
+          <ul class="template-features">
+            <li>Channels & direct messages</li>
+            <li>File sharing & search</li>
+            <li>Video calls (WebRTC)</li>
+            <li>App marketplace ready</li>
+          </ul>
+          <div class="template-actions">
+            <a href="/concept-5-slackhub.html" class="btn btn-outline">View Demo</a>
+            <a href="#" class="btn btn-green">Clone Now</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-value">47ms</div>
+        <div class="stat-label">Average response time</div>
+      </div>
+      <div>
+        <div class="stat-value">35+</div>
+        <div class="stat-label">Edge locations</div>
+      </div>
+      <div>
+        <div class="stat-value">500+</div>
+        <div class="stat-label">Enterprise customers</div>
+      </div>
+      <div>
+        <div class="stat-value">24/7</div>
+        <div class="stat-label">Support included</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="submit-section" id="submit">
+  <div class="container">
+    <div class="submit-grid">
+      <div class="submit-content">
+        <div class="section-label">Custom builds</div>
+        <h2>Have a unique idea?<br>We'll build it for you.</h2>
+        <p>Submit your SaaS concept and our engineering team will deliver a production-ready clone within 2-4 weeks. Full source code ownership included.</p>
+        <ul class="submit-features">
+          <li>
+            <div class="icon">01</div>
+            <div>
+              <h4>Dedicated project manager</h4>
+              <p>A single point of contact throughout the build process.</p>
+            </div>
+          </li>
+          <li>
+            <div class="icon">02</div>
+            <div>
+              <h4>Weekly progress updates</h4>
+              <p>Staging deployments every Friday for your review.</p>
+            </div>
+          </li>
+          <li>
+            <div class="icon">03</div>
+            <div>
+              <h4>Full source code</h4>
+              <p>No lock-in. You own everything we build.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="submit-form">
+        <div class="form-header">
+          <h3>Submit your idea</h3>
+          <p>Tell us about the SaaS you want to clone or create.</p>
+        </div>
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your name</label>
+              <input type="text" class="form-input" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email address</label>
+              <input type="email" class="form-input" placeholder="john@company.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reference URL (optional)</label>
+            <input type="url" class="form-input" placeholder="https://example-saas.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Describe your idea</label>
+            <textarea class="form-textarea" placeholder="Tell us about the features, integrations, and any specific requirements..."></textarea>
+          </div>
+          <div class="form-footer">
+            <div class="form-price">
+              <div class="label">Starting at</div>
+              <div class="amount">$2,499</div>
+            </div>
+            <button type="submit" class="btn btn-green">Submit Request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to ship faster?</h2>
+    <p>Join hundreds of founders who've launched their SaaS in days instead of months.</p>
+    <div class="cta-actions">
+      <a href="#templates" class="btn btn-green">Browse Templates</a>
+      <a href="#" class="btn btn-outline">Schedule a Demo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="#templates">Templates</a>
+        <a href="#">Documentation</a>
+        <a href="#">Status</a>
+        <a href="#">Support</a>
+      </div>
+      <div class="footer-copy">© 2026 CloneSaaS. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
