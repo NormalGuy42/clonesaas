@@ -1,9 +1,21 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import { SOCIAL_LINKS } from '../../constants';
+  
+  let baseUrl = $derived($page.url.origin);
 </script>
 
 <svelte:head>
   <title>Terms of Service - CloneSaaS</title>
+  <meta name="description" content="CloneSaaS Terms of Service - Read our terms and conditions for using our startup clone marketplace." />
+  <link rel="canonical" href="{baseUrl}/terms" />
+  
+  <meta property="og:title" content="Terms of Service - CloneSaaS" />
+  <meta property="og:description" content="CloneSaaS Terms of Service - Read our terms and conditions for using our startup clone marketplace." />
+  <meta property="og:url" content="{baseUrl}/terms" />
+  <meta property="og:type" content="website" />
+  
+  <meta name="robots" content="noindex, follow" />
 </svelte:head>
 
 <section class="legal-page">

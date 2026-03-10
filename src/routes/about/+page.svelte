@@ -1,9 +1,25 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import { SOCIAL_LINKS, SITE_CONFIG } from '../../constants';
+  
+  let baseUrl = $derived($page.url.origin);
 </script>
 
 <svelte:head>
   <title>About - CloneSaaS</title>
+  <meta name="description" content="Learn about CloneSaaS - we help founders skip validation and launch faster with pre-built, niche-adapted clones of proven business models." />
+  <link rel="canonical" href="{baseUrl}/about" />
+  
+  <meta property="og:title" content="About - CloneSaaS" />
+  <meta property="og:description" content="Learn about CloneSaaS - we help founders skip validation and launch faster with pre-built, niche-adapted clones of proven business models." />
+  <meta property="og:image" content="{baseUrl}/main-og-image.png" />
+  <meta property="og:url" content="{baseUrl}/about" />
+  <meta property="og:type" content="website" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="About - CloneSaaS" />
+  <meta name="twitter:description" content="Learn about CloneSaaS - we help founders skip validation and launch faster with pre-built, niche-adapted clones of proven business models." />
+  <meta name="twitter:image" content="{baseUrl}/main-og-image.png" />
 </svelte:head>
 
 <section class="about-page">
