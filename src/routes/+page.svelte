@@ -43,7 +43,7 @@
 	<meta name="twitter:creator" content="@_madiou" />
 	<meta name="twitter:title" content="CloneSAAS | Copy what works" />
 	<meta name="twitter:description" content="A website that allows you to clone profitable startups and adapt them to your own niches. Stop wasting time shipping and just copy what works." />
-	<meta name="twitter:image" content="{baseUrl}/main-og-image.png" />
+	<meta name="twitter:image" content="{baseUrl}/og-images/main-og-image.png" />
 
 </svelte:head>
 
