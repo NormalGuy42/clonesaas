@@ -17,10 +17,34 @@
   function handleCloseModal() {
     selectedClone = null;
   }
+
+  let baseUrl = $derived($page.url.origin);
 </script>
 
 <svelte:head>
   <title>{selectedStartup ? `${selectedStartup.name} Clones - CloneSaaS` : 'CloneSaaS - Buy a Proven Business Model'}</title>
+	<meta name="description" content="A website that allows you to clone profitable startups and adapt them to your own niches. Stop wasting time shipping and just copy what works." />
+	<meta name="keywords" content="CloneSAAS, SAAS, Clone, " />
+	<link rel="canonical" href="https://clonesaas.io" />
+	<link rel="canonical" href={baseUrl} />
+
+	<!-- Open Graph -->
+	<meta property="og:site_name" content="CloneSAAS" />
+@@ -23,7 +27,7 @@
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://clonesaas.io" />
+	<meta property="og:url" content={baseUrl} />
+	<meta property="og:locale" content="en_US" />
+
+	<!-- Twitter Card -->
+@@ -32,7 +36,7 @@
+	<meta name="twitter:creator" content="@_madiou" />
+	<meta name="twitter:title" content="CloneSAAS | Copy what works" />
+	<meta name="twitter:description" content="A website that allows you to clone profitable startups and adapt them to your own niches. Stop wasting time shipping and just copy what works." />
+	<meta name="twitter:image" content="{baseUrl}/main-og-image.png" />
+
 </svelte:head>
 
 {#if selectedStartup}
