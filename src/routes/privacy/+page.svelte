@@ -1,18 +1,17 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import { SOCIAL_LINKS } from '../../constants';
+  import { SOCIAL_LINKS, SITE_CONFIG } from '../../constants';
   
-  let baseUrl = $derived($page.url.origin);
+  const pageDescription = `${SITE_CONFIG.name} Privacy Policy - Learn how we collect, use, and protect your personal information.`;
 </script>
 
 <svelte:head>
-  <title>Privacy Policy - CloneSaaS</title>
-  <meta name="description" content="CloneSaaS Privacy Policy - Learn how we collect, use, and protect your personal information." />
-  <link rel="canonical" href="{baseUrl}/privacy" />
+  <title>Privacy Policy - {SITE_CONFIG.name}</title>
+  <meta name="description" content={pageDescription} />
+  <link rel="canonical" href={`${SITE_CONFIG.url}/privacy`} />
   
-  <meta property="og:title" content="Privacy Policy - CloneSaaS" />
-  <meta property="og:description" content="CloneSaaS Privacy Policy - Learn how we collect, use, and protect your personal information." />
-  <meta property="og:url" content="{baseUrl}/privacy" />
+  <meta property="og:title" content={`Privacy Policy - ${SITE_CONFIG.name}`} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:url" content={`${SITE_CONFIG.url}/privacy`} />
   <meta property="og:type" content="website" />
   
   <meta name="robots" content="noindex, follow" />

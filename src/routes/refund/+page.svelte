@@ -1,18 +1,17 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import { SOCIAL_LINKS } from '../../constants';
+  import { SOCIAL_LINKS, SITE_CONFIG } from '../../constants';
   
-  let baseUrl = $derived($page.url.origin);
+  const pageDescription = `${SITE_CONFIG.name} Refund Policy - 14-day money-back guarantee. Learn about our refund process and conditions.`;
 </script>
 
 <svelte:head>
-  <title>Refund Policy - CloneSaaS</title>
-  <meta name="description" content="CloneSaaS Refund Policy - 14-day money-back guarantee. Learn about our refund process and conditions." />
-  <link rel="canonical" href="{baseUrl}/refund" />
+  <title>Refund Policy - {SITE_CONFIG.name}</title>
+  <meta name="description" content={pageDescription} />
+  <link rel="canonical" href={`${SITE_CONFIG.url}/refund`} />
   
-  <meta property="og:title" content="Refund Policy - CloneSaaS" />
-  <meta property="og:description" content="CloneSaaS Refund Policy - 14-day money-back guarantee. Learn about our refund process and conditions." />
-  <meta property="og:url" content="{baseUrl}/refund" />
+  <meta property="og:title" content={`Refund Policy - ${SITE_CONFIG.name}`} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:url" content={`${SITE_CONFIG.url}/refund`} />
   <meta property="og:type" content="website" />
   
   <meta name="robots" content="noindex, follow" />

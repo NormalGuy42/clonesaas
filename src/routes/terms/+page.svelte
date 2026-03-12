@@ -1,18 +1,17 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import { SOCIAL_LINKS } from '../../constants';
+  import { SOCIAL_LINKS, SITE_CONFIG } from '../../constants';
   
-  let baseUrl = $derived($page.url.origin);
+  const pageDescription = `${SITE_CONFIG.name} Terms of Service - Read our terms and conditions for using our startup clone marketplace.`;
 </script>
 
 <svelte:head>
-  <title>Terms of Service - CloneSaaS</title>
-  <meta name="description" content="CloneSaaS Terms of Service - Read our terms and conditions for using our startup clone marketplace." />
-  <link rel="canonical" href="{baseUrl}/terms" />
+  <title>Terms of Service - {SITE_CONFIG.name}</title>
+  <meta name="description" content={pageDescription} />
+  <link rel="canonical" href={`${SITE_CONFIG.url}/terms`} />
   
-  <meta property="og:title" content="Terms of Service - CloneSaaS" />
-  <meta property="og:description" content="CloneSaaS Terms of Service - Read our terms and conditions for using our startup clone marketplace." />
-  <meta property="og:url" content="{baseUrl}/terms" />
+  <meta property="og:title" content={`Terms of Service - ${SITE_CONFIG.name}`} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:url" content={`${SITE_CONFIG.url}/terms`} />
   <meta property="og:type" content="website" />
   
   <meta name="robots" content="noindex, follow" />

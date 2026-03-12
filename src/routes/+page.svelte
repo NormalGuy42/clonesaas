@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import { Hero, HowItWorks, StartupGrid, StartupDetail, PurchaseModal } from '$lib';
   import { getStartupById, type Startup, type Clone } from '$lib/data';
+  import { SITE_CONFIG } from '../constants';
 
   // State derived from URL
   let startupId = $derived($page.url.searchParams.get('startup'));
@@ -17,34 +18,32 @@
   function handleCloseModal() {
     selectedClone = null;
   }
-
-  let baseUrl = $derived($page.url.origin);
 </script>
 
 <svelte:head>
-  <title>{selectedStartup ? `${selectedStartup.name} Clones - CloneSaaS` : 'CloneSaaS - Buy a Proven Business Model'}</title>
-  <meta name="description" content="Clone proven startup business models and adapt them to your niche. Stop building from scratch — copy what already works." />
+  <title>{selectedStartup ? `${selectedStartup.name} Clones - ${SITE_CONFIG.name}` : `${SITE_CONFIG.name} - Buy a Proven Business Model`}</title>
+  <meta name="description" content={SITE_CONFIG.description} />
   <meta name="keywords" content="CloneSaaS, SaaS, clone, startup, business model, niche, entrepreneur" />
-  <link rel="canonical" href={baseUrl} />
+  <link rel="canonical" href={SITE_CONFIG.url} />
 
   <!-- Open Graph -->
-  <meta property="og:site_name" content="CloneSaaS" />
-  <meta property="og:title" content={selectedStartup ? `${selectedStartup.name} Clones - CloneSaaS` : 'CloneSaaS | Copy What Works'} />
-  <meta property="og:description" content="Clone proven startup business models and adapt them to your niche. Stop building from scratch — copy what already works." />
-  <meta property="og:image" content="{baseUrl}/main-og-image.png" />
+  <meta property="og:site_name" content={SITE_CONFIG.name} />
+  <meta property="og:title" content={selectedStartup ? `${selectedStartup.name} Clones - ${SITE_CONFIG.name}` : `${SITE_CONFIG.name} | Copy What Works`} />
+  <meta property="og:description" content={SITE_CONFIG.description} />
+  <meta property="og:image" content={SITE_CONFIG.ogImage} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={baseUrl} />
+  <meta property="og:url" content={SITE_CONFIG.url} />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@_madiou" />
-  <meta name="twitter:creator" content="@_madiou" />
-  <meta name="twitter:title" content={selectedStartup ? `${selectedStartup.name} Clones - CloneSaaS` : 'CloneSaaS | Copy What Works'} />
-  <meta name="twitter:description" content="Clone proven startup business models and adapt them to your niche. Stop building from scratch — copy what already works." />
-  <meta name="twitter:image" content="{baseUrl}/main-og-image.png" />
+  <meta name="twitter:site" content={SITE_CONFIG.twitterHandle} />
+  <meta name="twitter:creator" content={SITE_CONFIG.twitterHandle} />
+  <meta name="twitter:title" content={selectedStartup ? `${selectedStartup.name} Clones - ${SITE_CONFIG.name}` : `${SITE_CONFIG.name} | Copy What Works`} />
+  <meta name="twitter:description" content={SITE_CONFIG.description} />
+  <meta name="twitter:image" content={SITE_CONFIG.ogImage} />
 </svelte:head>
 
 {#if selectedStartup}
